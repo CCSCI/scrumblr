@@ -685,7 +685,6 @@ $(function() {
 	//disable image dragging
 	//window.ondragstart = function() { return false; };
 
-
     if (boardInitialized === false)
         blockUI('<img src="images/ajax-loader.gif" width=43 height=11/>');
 
