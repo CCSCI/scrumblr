@@ -34,6 +34,7 @@ app.use(conf.baseurl, router);
 app.locals.ga = ga.enabled;
 app.locals.gaAccount = ga.account;
 
+var LoginSessionCache={}
 router.use(express.static(__dirname + '/client'));
 
 var server = require('http').Server(app);
@@ -73,10 +74,47 @@ router.get('/demo', function(req, res) {
 	});
 });
 
+function isValidUser(req){
+	/**
+	 * hard code ..to fix
+	 */
+	if(req.query.username=='admin' && req.query.password=='notadmin'){
+		return true
+	}
+	return false
+}
+/**
+ * gen token using math.random
+ */
+function genToken(){
+	return	Math.random().toString(32).substr(2)
+}
+
+router.get('/login', function(req, res) {
+	if(isValidUser(req)){
+		var cacheId=genToken()
+		LoginSessionCache[cacheId]=true
+		/**
+		 * clear token
+		 */
+		setTimeout(function(){
+			delete LoginSessionCache[cacheId]
+		},1000*60*30)
+		res.send({msg:'OK',token:cacheId})
+	}else{
+		res.send({msg:'KO'})
+	}
+});
+
 router.get('/:id', function(req, res){
-	res.render('index.jade', {
-		pageTitle: ('scrumblr - ' + req.params.id)
-	});
+	if(req.query.token && LoginSessionCache[req.query.token]){
+		res.render('index.jade', {
+			pageTitle: ('scrumblr - ' + req.params.id)
+		});
+	}else{
+		res.redirect('/')
+	}
+	
 });
 
 
