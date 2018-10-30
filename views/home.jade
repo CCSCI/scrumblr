@@ -22,14 +22,18 @@ body
 					td
 						h1.home scrumblr.
 						form.home(onsubmit="return go();")
-							label name your new board:
-							br
+							label Boardname:&nbsp
 							input.text(type="text", name="name")
-							a#go(onclick="return go();") &nbsp;go.
-						<br><br>
-						p.home example board:
-						p.home!= '<a href="http://' + locals.url + '/demo">' + locals.url + '/demo</a>'
-						<br><br><br>
+							br
+							label Username:&nbsp
+							input.text(type="text", name="username")
+							br
+							label Password:&nbsp
+							input.text(type="password",name="pass")
+							br
+							a#go(onclick="return go();") &nbsp;Let's go.
+						<br>
+						p.home example board: <a href="/demo">demo</a>
 						p.home.small sourcecode at <a href="https://github.com/aliasaria/scrumblr">github</a>
 
 	div.stickers
