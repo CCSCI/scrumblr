@@ -16,6 +16,8 @@ var ga = require('./config.js').googleanalytics;
 var	rooms	= require('./lib/rooms.js');
 var	data	= require('./lib/data.js').db;
 
+const  UserService = require('./lib/user-service');
+
 /**************
  GLOBALS
 **************/
@@ -74,15 +76,6 @@ router.get('/demo', function(req, res) {
 	});
 });
 
-function isValidUser(req){
-	/**
-	 * hard code ..to fix
-	 */
-	if(req.query.username=='admin' && req.query.password=='notadmin'){
-		return true
-	}
-	return false
-}
 /**
  * gen token using math.random
  */
@@ -91,19 +84,22 @@ function genToken(){
 }
 
 router.get('/login', function(req, res) {
-	if(isValidUser(req)){
-		var cacheId=genToken()
-		LoginSessionCache[cacheId]=true
-		/**
-		 * clear token
-		 */
-		setTimeout(function(){
-			delete LoginSessionCache[cacheId]
-		},1000*60*30)
-		res.send({msg:'OK',token:cacheId})
-	}else{
+	var user=req.query.username
+	var pass=req.query.password
+	UserService.isValidUser(db,user,pass,()=>{
+			var cacheId=genToken()
+			LoginSessionCache[cacheId]=true
+			/**
+			 * clear token
+			 */
+			setTimeout(function(){
+				delete LoginSessionCache[cacheId]
+			},1000*60*30)
+			res.send({msg:'OK',token:cacheId})
+		},
+	()=>{
 		res.send({msg:'KO'})
-	}
+	});
 });
 
 router.get('/:id', function(req, res){
