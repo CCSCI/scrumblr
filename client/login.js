@@ -26,3 +26,11 @@ function go() {
 //   window.location.href = value;
   return false;
 }
+
+$(function(){
+    $('#board-table').keydown(function (event) {
+        if (event.keyCode == 13) {
+        $("#go").click();
+        }
+        });
+})
