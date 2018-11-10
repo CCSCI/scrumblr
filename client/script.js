@@ -167,12 +167,13 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
         ' draggable" style="-webkit-transform:rotate(' + rot +
         'deg);\
 	">\
+	<img src="images/icons/iconic/raster/black/pin_32x32.png" class="card-icon connect-card-icon" /> \
 	<img src="images/icons/token/Xion.png" class="card-icon delete-card-icon" />\
 	<img class="card-image" src="images/' +
         colour + '-card.png">\
 	<div id="content:' + id +
         '" class="content stickertarget droppable">' +
-        text + '</div><span class="filler"></span>\
+        text + '</div><span class="userinfo"></span> <span class="filler"></span>\
 	</div>';
 
     var card = $(h);

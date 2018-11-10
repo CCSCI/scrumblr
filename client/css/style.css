@@ -88,6 +88,20 @@ width: 16px; height: 16px;
 	opacity: .9;
 }
 
+.connect-card-icon {
+	top:35%;
+}
+.userinfo{
+	border: #4db2d6 1px dashed;
+	background-repeat: no-repeat;
+	background-image:url(https://aboutme.imgix.net/background/users/b/r/a/brain.duan_1540362997_229.jpg?q=40&dpr=2&auto=format&fit=max&w=120&h=14);
+	border-radius:5px;
+    height: 20%;
+    top: 18%;
+    position: absolute;
+    left: 14%;
+    width: 12%;
+}
 .card-edit-form, .card-edit-form input, .card-edit-form textarea {
 	border: none;
 	font-size:inherit;
